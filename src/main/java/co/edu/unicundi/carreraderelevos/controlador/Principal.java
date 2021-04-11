@@ -5,6 +5,7 @@
  */
 package co.edu.unicundi.carreraderelevos.controlador;
 
+import co.edu.unicundi.carreraderelevos.modelo.Carrera;
 import co.edu.unicundi.carreraderelevos.vista.Vista;
 
 /**
@@ -13,6 +14,8 @@ import co.edu.unicundi.carreraderelevos.vista.Vista;
  */
 public class Principal {
     public static void main(String[] args) {
-        Vista vista = new Vista();
+        //Vista vista = new Vista();
+        Carrera car= new Carrera();
+        car.salida();
     }
 }
