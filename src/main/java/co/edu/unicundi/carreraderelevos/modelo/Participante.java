@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author diego
  */
 public class Participante extends Equipo{
-    
+
     private String nombreParticipante;
     
     private byte numeroParticipante;
@@ -25,36 +25,37 @@ public class Participante extends Equipo{
     
     private boolean pivote ;
     
-    private boolean bandera = false;
+    private byte  corredor;
+    
+    private boolean bandera;
 
-    public Participante(String NombreEquipo, String nombreParticipante, byte numeroParticipante, boolean pivote) {
-        this.setNombreEquipo(nombreParticipante);
+    /**
+     *
+     * @param NombreEquipo
+     * @param nombreParticipante
+     * @param numeroParticipante
+     * @param pivote
+     * @param corredor
+     */
+    public Participante(String NombreEquipo, String nombreParticipante, byte numeroParticipante, boolean pivote , byte corredor) {
+        this.setNombreEquipo(NombreEquipo);
         this.nombreParticipante = nombreParticipante;
         this.numeroParticipante = numeroParticipante;
         this.pivote = pivote;
+        this.corredor = corredor;
     }
+
     
     @Override
     public synchronized void run(){
-        while(true){           
-            if (pivote != true){
-                pivote = true;
-                esperar();
-            }else{
-                if(bandera == false){
-                   correr();
-                   bandera=true;
-                }
-            }
-            if(bandera == true){
-               
-                notifyAll();
-            
-            }
-        }
+        esperar();
+        if(pivote!=false){
+            correr();
+            pivote = false;
+        }        
     }
 
-    private synchronized  void esperar(){
+    public synchronized void esperar(){
         try {
             System.out.println("esperando corredor " + numeroParticipante);
             wait();
@@ -64,11 +65,17 @@ public class Participante extends Equipo{
     }
     
     public synchronized void correr(){
+
         while (pasos <= 50 ) {
-            randonPasos();
-            System.out.println("pasos del coorredor " + nombreParticipante + " son "+ pasos);
+            try {
+                Thread.sleep(1000);
+                randonPasos();
+                System.out.println("pasos del coorredor " + nombreParticipante + " son "+ pasos);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Participante.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
+        bandera= true;
     } 
     
     public byte randonPasos(){
@@ -84,14 +91,6 @@ public class Participante extends Equipo{
 
     public void setNombreParticipante(String nombreParticipante) {
         this.nombreParticipante = nombreParticipante;
-    }
-
-    public boolean isCorreo() {
-        return bandera;
-    }
-
-    public void setCorreo(boolean correo) {
-        this.bandera = correo;
     }
     
     public byte getPasos() {
@@ -118,5 +117,30 @@ public class Participante extends Equipo{
         this.pivote = Pivote;
     }
     
+    public Object getEspera() {
+        return espera;
+    }
+
+    public void setEspera(Object espera) {
+        this.espera = espera;
+    }
+
+    public byte getCorredor() {
+        return corredor;
+    }
     
+    public void setCorredor(byte corredor) {
+        this.corredor = corredor;
+    }
+
+    public boolean isBandera() {
+        return bandera;
+    }
+
+    public void setBandera(boolean bandera) {
+        this.bandera = bandera;
+    }
+
+
+ 
 }
