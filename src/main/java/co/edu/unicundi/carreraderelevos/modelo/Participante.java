@@ -5,13 +5,15 @@
  */
 package co.edu.unicundi.carreraderelevos.modelo;
 
+import com.oracle.xmlns.internal.webservices.jaxws_databinding.SoapBindingParameterStyle;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author diego
+ * @author Diego y Cesar
  */
 public class Participante extends Equipo{
 
@@ -47,35 +49,50 @@ public class Participante extends Equipo{
 
     
     @Override
-    public synchronized void run(){
+    public void run(){
         esperar();
         if(pivote!=false){
             correr();
             pivote = false;
+            //esperar();
         }        
     }
-
+    /*
+    funcion que pone en espera a  los jugadores
+    */
     public synchronized void esperar(){
         try {
-            System.out.println("esperando corredor " + numeroParticipante);
+            System.out.println("esperando corredor " + nombreParticipante);
             wait();
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
+    public void despertar(List<Participante> lista){
+        for (Participante p : lista) {
+            if(p.isPivote() == true){
+                synchronized(p){
+                    p.notify();
+                }
+            }
+        }
+        
+    }
+    
     public synchronized void correr(){
 
-        while (pasos <= 50 ) {
+        while (pasos <= 20 ) {
             try {
                 Thread.sleep(1000);
                 randonPasos();
-                System.out.println("pasos del coorredor " + nombreParticipante + " son "+ pasos);
+                System.out.println(" los pasos del coorredor " + nombreParticipante + " son " + pasos + " del equipo " + getNombreEquipo());
+                System.out.println("");
             } catch (InterruptedException ex) {
                 Logger.getLogger(Participante.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        bandera= true;
+        bandera = true;
     } 
     
     public byte randonPasos(){
@@ -115,14 +132,6 @@ public class Participante extends Equipo{
 
     public void setPivote(boolean Pivote) {
         this.pivote = Pivote;
-    }
-    
-    public Object getEspera() {
-        return espera;
-    }
-
-    public void setEspera(Object espera) {
-        this.espera = espera;
     }
 
     public byte getCorredor() {
