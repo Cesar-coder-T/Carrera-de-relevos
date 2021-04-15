@@ -11,4 +11,7 @@ package co.edu.unicundi.carreraderelevos.vista;
  */
 public class Vista {
     
+    
+    
+    
 }

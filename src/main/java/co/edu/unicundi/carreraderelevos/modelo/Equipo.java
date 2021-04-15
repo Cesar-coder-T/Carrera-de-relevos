@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author diego
  */
-public abstract class Equipo extends Thread{
+public abstract class Equipo extends Thread {
     
     private static Object espera = new Object();
     
@@ -27,6 +27,5 @@ public abstract class Equipo extends Thread{
         this.nombreEquipo = nombreEquipo;
     }
 
-    
     
 }

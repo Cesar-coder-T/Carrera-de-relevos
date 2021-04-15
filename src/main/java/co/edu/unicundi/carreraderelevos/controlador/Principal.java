@@ -6,11 +6,10 @@
 package co.edu.unicundi.carreraderelevos.controlador;
 
 import co.edu.unicundi.carreraderelevos.modelo.Carrera;
-import co.edu.unicundi.carreraderelevos.vista.Vista;
 
 /**
  *
- * @author cesar
+ * @author diego
  */
 public class Principal {
     public static void main(String[] args) {
