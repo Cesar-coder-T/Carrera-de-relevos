@@ -6,8 +6,11 @@
 package co.edu.unicundi.carreraderelevos.vista;
 
 /**
- *
- * @author cesar
+ * Esta clase muestra los datos en consola al usuario.
+ * @author Diego Cobos
+ * @author César Téllez
+ * @since 1.0
+ * @version 1.2.9
  */
 public class Vista {
     

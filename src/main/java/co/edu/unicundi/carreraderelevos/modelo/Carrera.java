@@ -11,27 +11,46 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author diego
+ * Esta clase contiene las acciones que se realizan en la carrera.
+ * @author Diego Cobos
+ * @author César Téllez
+ * @since 1.0
+ * @version 1.2.9
  */
 public class Carrera {
 
+    /**
+     * Determina si la carrera finalizó.
+     */
     boolean finalizar = true;
+    /**
+     * Aloja el ganador.
+     */
     String ganador = "Ganador ";
+    /**
+     * Objeto de la clase "Narrador".
+     */
     Narrador na = new Narrador();
 
-    List<Participante> todosCorredores = new ArrayList<>();
+    /**
+     * Lista que contiene los corredores.
+     */
+    List<Corredor> todosCorredores = new ArrayList<>();
 
+    /**
+     * Método en donde se crean los objetos, se convierten en hilos y se guardan
+     * en la lista.
+     */
     public void inicialaizar(){
-        Participante p1 = new Participante("Diamante", "Carlos", (byte) 1, true, (byte)1,(byte)1);
-        Participante p2 = new Participante("Diamante", "Daniel", (byte) 2, false, (byte)2, (byte)40);
-        Participante p3 = new Participante("Diamante", "Cesar", (byte)5,  false,(byte) 3,(byte)50 );
-        Participante p4 = new Participante("Esmeralda", "Santi", (byte) 3, true,(byte) 1,(byte)1);
-        Participante p5 = new Participante("Esmeralda", "Sergio", (byte) 4, false,(byte) 2,(byte)40);
-        Participante p6 = new Participante("Esmeralda", "Miguel", (byte)6, false ,(byte)3,(byte)50);
-        Participante p7 = new Participante("Ruby", "Dante", (byte)6, true ,(byte)1, (byte)1);
-        Participante p8 = new Participante("Ruby", "Francisco", (byte)6, false ,(byte)2,(byte)40);
-        Participante p9 = new Participante("Ruby", "Homero", (byte)6, false ,(byte)3,(byte)50);
+        Corredor p1 = new Corredor("Diamante", "Carlos", (byte) 1, true, (byte)1,(byte)1);
+        Corredor p2 = new Corredor("Diamante", "Daniel", (byte) 2, false, (byte)2, (byte)40);
+        Corredor p3 = new Corredor("Diamante", "Cesar", (byte)5,  false,(byte) 3,(byte)50 );
+        Corredor p4 = new Corredor("Esmeralda", "Santi", (byte) 3, true,(byte) 1,(byte)1);
+        Corredor p5 = new Corredor("Esmeralda", "Sergio", (byte) 4, false,(byte) 2,(byte)40);
+        Corredor p6 = new Corredor("Esmeralda", "Miguel", (byte)6, false ,(byte)3,(byte)50);
+        Corredor p7 = new Corredor("Ruby", "Dante", (byte)6, true ,(byte)1, (byte)1);
+        Corredor p8 = new Corredor("Ruby", "Francisco", (byte)6, false ,(byte)2,(byte)40);
+        Corredor p9 = new Corredor("Ruby", "Homero", (byte)6, false ,(byte)3,(byte)50);
         
         
         todosCorredores.add(p1);
@@ -56,7 +75,10 @@ public class Carrera {
         na.start();
     }
     
-    public void salida(){
+    /**
+     * Método que se encarga de determinar la salir del corredor.
+     */
+    public void salir(){
         
         try {
             inicialaizar();
@@ -65,7 +87,7 @@ public class Carrera {
             
             while(finalizar){
                 Imprimir(todosCorredores);
-                for (Participante c : todosCorredores ) {
+                for (Corredor c : todosCorredores ) {
                     if(c.getCorredor() ==3 && c.isBandera() == true){
                         ganador = ganador+ c.getNombreEquipo();
                         System.out.println("Termino la carrera Y el " + ganador);
@@ -74,23 +96,27 @@ public class Carrera {
                     }
                 }
                 Imprimir(todosCorredores);
-                pasoPivote(todosCorredores);
+                pasarPivote(todosCorredores);
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Carrera.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    
-    public void pasoPivote(List<Participante> equipo){
-        for (Participante c2 : equipo) {
+    /**
+     * Método que se encarga de despertar al hilo que le corresponda
+     * correr de acuerdo al pivote(Si tiene el pivote corra, del lo contrario no).
+     * @param equipo 
+     */
+    public void pasarPivote(List<Corredor> equipo){
+        for (Corredor c2 : equipo) {
             if(c2.isPivote()== true){
                 synchronized(c2){
                     c2.notify();
                 }
             }
             if(c2.getCorredor() == 1 && c2.isPivote() == false ){
-                for (Participante c3 : equipo) {
+                for (Corredor c3 : equipo) {
                     if(c3.getNombreEquipo().equals(c2.getNombreEquipo())){
                         if(c3.getCorredor() == 2 && c3.isBandera() == false){
                             c3.setPivote(true);
@@ -98,7 +124,7 @@ public class Carrera {
                     }
                 }
             }if(c2.getCorredor() == 2 && c2.isBandera() == true && c2.isPivote() == false){
-                for(Participante c3 : equipo){
+                for(Corredor c3 : equipo){
                     if(c3.getNombreEquipo().equals(c2.getNombreEquipo())){
                         if(c3.getCorredor() == 3 && c3.isBandera() == false){
                             c3.setPivote(true);
@@ -109,18 +135,26 @@ public class Carrera {
         }
     }
 
-    private void finalizar(List<Participante> lista) {
-        for (Participante c : lista) {
+    /**
+     * Método encargado de finalizar la carrera (Terminar la ejecución de los hilos).
+     * @param lista 
+     */
+    private void finalizar(List<Corredor> lista) {
+        for (Corredor c : lista) {
             c.interrupt();
         }
         
     }
     
-    private void Imprimir(List<Participante> lista){
+    /**
+     * Método encargado de mostrar las posiciones de cada corredor.
+     * @param lista 
+     */
+    private void Imprimir(List<Corredor> lista){
         byte pocicionCorredor1=0;
         byte pocicionCorredor2=0;
         byte pocicionCorredor3=0;       
-        for (Participante c1 : lista) {
+        for (Corredor c1 : lista) {
             if(c1.getNombreEquipo().equals("Diamante") && c1.getCorredor() == 1){
                 pocicionCorredor1 =(byte) c1.getPasos();
             }
@@ -132,7 +166,7 @@ public class Carrera {
             }
         }
         na.Equipos(pocicionCorredor1, pocicionCorredor2, pocicionCorredor3);
-        for (Participante c1 : lista) {
+        for (Corredor c1 : lista) {
             if(c1.getNombreEquipo().equals("Esmeralda")&& c1.getCorredor() == 1){
                 pocicionCorredor1 =(byte) c1.getPasos();
             }
@@ -144,7 +178,7 @@ public class Carrera {
             }
         }
         //na.Equipos(pocicionCorredor1, pocicionCorredor2, pocicionCorredor3);
-        for (Participante c1 : lista) {
+        for (Corredor c1 : lista) {
             if(c1.getNombreEquipo().equals("Ruby")&& c1.getCorredor() == 1){
                 pocicionCorredor1 =(byte) c1.getPasos();
             }

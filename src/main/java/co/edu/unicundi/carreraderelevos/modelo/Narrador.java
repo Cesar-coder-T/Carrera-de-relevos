@@ -5,23 +5,47 @@
  */
 package co.edu.unicundi.carreraderelevos.modelo;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
- *
- * @author diego
+ * Esta clase hereda de la clase "Thread" y representa al narrador
+ * de la carrera de relevos.Es decir, muestra al corredor de acuerdo a su 
+ * posición en la pista.
+ * @author Diego Cobos
+ * @author César Téllez
+ * @since 1.0
+ * @version 1.2.9
  */
 public class Narrador extends Thread{
 
+    /**
+     * Almacena la primera posición del corredor.
+     */
     byte pocicion1;
+    /**
+     * Almacena la segunda posición del corredor.
+     */
     byte pocicion2;
+    /**
+     * Almacena la tercera posición del corredor.
+     */
     byte pocicion3;
     
-        String cabeza1 = "   *   ";
-        String cabeza2 = "  ***  ";
-        String cabeza3 = "   *   ";
+    /**
+     * Dibuja la primera parte de la figura que refleja al corredor.
+     */
+    String cabeza1 = "   *   ";
+    /**
+     * Dibuja la segunda parte de la figura que refleja al corredor.
+     */
+    String cabeza2 = "  ***  ";
+    /**
+     * Dibuja la tercera parte de la figura que refleja al corredor.
+     */
+    String cabeza3 = "   *   ";
         
+    /**
+     * Método sobreescrito de la clase Thread que corre el hilo
+     * principal y los que contenga.
+     */
     @Override
     public void run(){
         try {
@@ -33,9 +57,14 @@ public class Narrador extends Thread{
         
         } catch (Exception e) {
         }
-
     }
     
+    /**
+     * Método que define los corredores de cada posición en la carrera.
+     * @param pocicionJugador1
+     * @param pocicionJugador2
+     * @param pocicionJugador3 
+     */
     public void Equipos( byte pocicionJugador1, byte pocicionJugador2, byte pocicionJugador3){
     
         pocicion1 = pocicionJugador1;
@@ -43,6 +72,9 @@ public class Narrador extends Thread{
         pocicion3 = pocicionJugador3;
     }
     
+    /**
+     * Método que dibuja las figuras en la consola de acuerdo a su recorrido.
+     */
     public  void FiguraEquipo1(){
         System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
         System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
