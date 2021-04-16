@@ -5,6 +5,7 @@
  */
 package co.edu.unicundi.carreraderelevos.modelo;
 
+import co.edu.unicundi.carreraderelevos.vista.Narrador;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
