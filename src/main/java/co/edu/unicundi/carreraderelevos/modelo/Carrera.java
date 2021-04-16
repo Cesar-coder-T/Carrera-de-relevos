@@ -84,7 +84,6 @@ public class Carrera {
         try {
             preparar();
             Thread.sleep(2000);
-            System.out.println("Narrador: !!!A correr!!!");
             while(isFinalizar()){
                 Imprimir(todosCorredores);
                 pasarPivote(todosCorredores);

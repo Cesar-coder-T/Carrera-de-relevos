@@ -59,6 +59,7 @@ public class Narrador extends Thread{
         try {
             byte cont =1;
             Thread.sleep(5000);
+            System.out.println("Arbitro: !!!A correr!!!");
             while(cont <= 15){
                 dibujarEquipo1();
                 dibujarEquipo2();
