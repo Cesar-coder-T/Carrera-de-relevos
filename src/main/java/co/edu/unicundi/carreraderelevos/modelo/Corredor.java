@@ -83,7 +83,7 @@ public class Corredor extends Equipo {
             correr();
             pivote = false;
         }if(corredor == 3 && pivote == false ){
-            System.out.println("Ganó el equipo: " + this.getNombreEquipo());
+            System.out.println("!!!Ganó el equipo: " + this.getNombreEquipo()+"!!!");
         }
         interrupt();       
     }

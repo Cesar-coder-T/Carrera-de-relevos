@@ -42,7 +42,7 @@ public class Carrera {
      * Método en donde se crean los objetos, se convierten en hilos y se guardan
      * en la lista.
      */
-    public void inicialaizar(){
+    public void preparar(){
         Corredor p1 = new Corredor("Diamante", "Carlos", (byte) 1, true, (byte)1,(byte)1);
         Corredor p2 = new Corredor("Diamante", "Daniel", (byte) 2, false, (byte)2, (byte)30);
         Corredor p3 = new Corredor("Diamante", "César", (byte)5,  false,(byte) 3,(byte)30);
@@ -78,19 +78,18 @@ public class Carrera {
     }
     
     /**
-     * Método que se encarga de determinar la salir del corredor.
+     * Método que se encarga de determinar la iniciar del corredor.
      */
-    public void salir(){
-        
+    public void iniciar(){
         try {
-            inicialaizar();
+            preparar();
             Thread.sleep(2000);
             System.out.println("Narrador: !!!A correr!!!");
             while(isFinalizar()){
                 Imprimir(todosCorredores);
                 pasarPivote(todosCorredores);
                 for (Corredor todosCorredore : todosCorredores) {
-                    if(todosCorredore.getCorredor() == 3 && todosCorredore.isPivote() == true){
+                    if(todosCorredore.getCorredor() == 3 && todosCorredore.isBandera() == true){
                         setFinalizar(false);
                     }
                 }
@@ -141,7 +140,7 @@ public class Carrera {
      */
     private void Imprimir(List<Corredor> lista){
         
-        na.Equipos(lista);
+        na.refrescarEquipo(lista);
 
     }
 
