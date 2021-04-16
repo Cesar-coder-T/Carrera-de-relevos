@@ -45,7 +45,7 @@ public class Carrera {
     public void inicialaizar(){
         Corredor p1 = new Corredor("Diamante", "Carlos", (byte) 1, true, (byte)1,(byte)1);
         Corredor p2 = new Corredor("Diamante", "Daniel", (byte) 2, false, (byte)2, (byte)30);
-        Corredor p3 = new Corredor("Diamante", "Cesar", (byte)5,  false,(byte) 3,(byte)30);
+        Corredor p3 = new Corredor("Diamante", "César", (byte)5,  false,(byte) 3,(byte)30);
         Corredor p4 = new Corredor("Esmeralda", "Santi", (byte) 3, true,(byte) 1,(byte)1);
         Corredor p5 = new Corredor("Esmeralda", "Sergio", (byte) 4, false,(byte) 2,(byte)30);
         Corredor p6 = new Corredor("Esmeralda", "Miguel", (byte)6, false ,(byte)3,(byte)30);
@@ -85,7 +85,7 @@ public class Carrera {
         try {
             inicialaizar();
             Thread.sleep(2000);
-            System.out.println("a correr");
+            System.out.println("Narrador: !!!A correr!!!");
             while(isFinalizar()){
                 Imprimir(todosCorredores);
                 pasarPivote(todosCorredores);
@@ -133,12 +133,6 @@ public class Carrera {
             }
         }
     }
-    
-
-    /**
-     * Método encargado de finalizar la carrera (Terminar la ejecución de los hilos).
-     * @param lista 
-     */
     
     
     /**

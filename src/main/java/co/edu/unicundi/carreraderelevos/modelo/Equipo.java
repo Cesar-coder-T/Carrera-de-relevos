@@ -15,7 +15,7 @@ package co.edu.unicundi.carreraderelevos.modelo;
  */
 public abstract class Equipo extends Thread {
     
-    private static Object espera = new Object();
+    //private static Object espera = new Object();
     
     private String nombreEquipo;
 

@@ -5,7 +5,6 @@
  */
 package co.edu.unicundi.carreraderelevos.modelo;
 
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,7 +83,7 @@ public class Corredor extends Equipo {
             correr();
             pivote = false;
         }if(corredor == 3 && pivote == false ){
-            System.out.println("gano el equipo" + this.getNombreEquipo());
+            System.out.println("Ganó el equipo: " + this.getNombreEquipo());
         }
         interrupt();       
     }
@@ -94,7 +93,7 @@ public class Corredor extends Equipo {
      */
     public synchronized void esperar(){
         try {
-            System.out.println("esperando corredor " + nombreParticipante);
+            System.out.println("Esperando corredor: " + nombreParticipante);
             wait();
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
@@ -113,8 +112,7 @@ public class Corredor extends Equipo {
                     while (pasos <= 30 ) {
                         Thread.sleep(1000);
                         cont = (byte) (Math.random()*4+1);
-                        pasos+=cont;
-                        cont=cont;
+                        pasos += cont;
                     }
                     pasos = 30;
                     break;
@@ -123,8 +121,7 @@ public class Corredor extends Equipo {
                     while(pasos <= 30){
                         Thread.sleep(1000);
                         cont = (byte) (Math.random()*4+1);
-                        pasos+=cont;
-                        cont=cont;   
+                        pasos += cont;  
                     }
                     pasos =30;
                     break;
@@ -133,8 +130,7 @@ public class Corredor extends Equipo {
                     while(pasos <= 30){
                         Thread.sleep(1000);
                         cont = (byte) (Math.random()*4+1);
-                        pasos+=cont;
-                        cont=cont;
+                        pasos += cont;
                     }
                     pasos=30;
                     break;

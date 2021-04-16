@@ -70,16 +70,15 @@ public class Narrador extends Thread{
     
     /**
      * Método que define los corredores de cada posición en la carrera.
-     * @param pocicionJugador1
-     * @param pocicionJugador2
-     * @param pocicionJugador3 
+     * @param equipo 
      */
     public void Equipos(List<Corredor> equipo){
         info = equipo;
     }
     
     /**
-     * Método que dibuja las figuras en la consola de acuerdo a su recorrido.
+     * Método que dibuja la figura del equipo 1 conforme a su posición en la carrera
+     * en la consola
      */
     public  void FiguraEquipo1(){
         String cabeza1 = "   *   ";
@@ -131,12 +130,15 @@ public class Narrador extends Thread{
         catch (InterruptedException ex) {
                 Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
     }
+    
+    /**
+     * Método que dibuja la figura del equipo 2 conforme a su posición en la carrera
+     * en la consola
+     */
     public  void FiguraEquipo2(){
         String cabeza1 = "   ****   ";
-        String cabeza2 = "*   *  ";
+        String cabeza2 = "   *  *  ";
         String cabeza3 = "   ****   ";
         try {
             for (Corredor corredor : info) {
@@ -187,6 +189,11 @@ public class Narrador extends Thread{
         
         
     }
+    
+    /**
+     * Método que dibuja la figura del equipo 3 conforme a su posición en la carrera
+     * en la consola
+     */
     public  void FiguraEquipo3(){
         String cabeza1 = "***  ***";
         String cabeza2 = "  ***  ";
@@ -229,8 +236,6 @@ public class Narrador extends Thread{
                     System.out.println("_________________________________________________________________________________________________________________________________");
   
                 }
-            
-                
         }
         catch (InterruptedException ex) {
                 Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
