@@ -5,6 +5,11 @@
  */
 package co.edu.unicundi.carreraderelevos.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Esta clase hereda de la clase "Thread" y representa al narrador
  * de la carrera de relevos.Es decir, muestra al corredor de acuerdo a su 
@@ -16,6 +21,7 @@ package co.edu.unicundi.carreraderelevos.modelo;
  */
 public class Narrador extends Thread{
 
+    List<Corredor> info = new ArrayList<>();
     /**
      * Almacena la primera posición del corredor.
      */
@@ -28,20 +34,8 @@ public class Narrador extends Thread{
      * Almacena la tercera posición del corredor.
      */
     byte pocicion3;
+
     
-    /**
-     * Dibuja la primera parte de la figura que refleja al corredor.
-     */
-    String cabeza1 = "   *   ";
-    /**
-     * Dibuja la segunda parte de la figura que refleja al corredor.
-     */
-    String cabeza2 = "  ***  ";
-    /**
-     * Dibuja la tercera parte de la figura que refleja al corredor.
-     */
-    String cabeza3 = "   *   ";
-        
     /**
      * Método sobreescrito de la clase Thread que corre el hilo
      * principal y los que contenga.
@@ -49,13 +43,27 @@ public class Narrador extends Thread{
     @Override
     public void run(){
         try {
-            Thread.sleep(3000);
-            while(true){
-                Thread.sleep(1000);
+            byte cont =1;
+            Thread.sleep(5000);
+            while(cont <= 15){
                 FiguraEquipo1();
+                FiguraEquipo2();
+                FiguraEquipo3();
+                System.out.println("");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("");
+                cont++;
             }
-        
-        } catch (Exception e) {
+            
+        }
+        catch (InterruptedException ex) {
+                Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -65,24 +73,171 @@ public class Narrador extends Thread{
      * @param pocicionJugador2
      * @param pocicionJugador3 
      */
-    public void Equipos( byte pocicionJugador1, byte pocicionJugador2, byte pocicionJugador3){
-    
-        pocicion1 = pocicionJugador1;
-        pocicion2 = pocicionJugador2;
-        pocicion3 = pocicionJugador3;
+    public void Equipos(List<Corredor> equipo){
+        info = equipo;
     }
     
     /**
      * Método que dibuja las figuras en la consola de acuerdo a su recorrido.
      */
     public  void FiguraEquipo1(){
-        System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
-        System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
-        System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %"+pocicion3+"s ", cabeza3, cabeza3, cabeza3+"\n");
-        pocicion1+=pocicion1;
-        pocicion2-=pocicion1;
+        String cabeza1 = "   *   ";
+        String cabeza2 = "  ***  ";
+        String cabeza3 = "   *   ";
+        try {
+            for (Corredor corredor : info) {
+                if(corredor.getCorredor()==1 && corredor.getNombreEquipo().equals("Diamante")){
+                    pocicion1 = corredor.getPasos();
+                }else if(corredor.getCorredor() ==2 && corredor.getNombreEquipo().equals("Diamante")){
+                    pocicion2 = corredor.getPasos();
+                }else if(corredor.getCorredor() ==3 && corredor.getNombreEquipo().equals("Diamante")){
+                    pocicion3 = corredor.getPasos();
+                }
+            }
+                Thread.sleep(1000);
+                if (pocicion1 <30) {
+                    pocicion2-=pocicion1;
+                    System.out.println(pocicion1);
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+                    
+                }else if(pocicion2 < 30){
+                    
+                    System.out.println(pocicion2);
+                    pocicion3-=pocicion2;
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+   
+                }else if(pocicion3 < 30){
+                    
+                    System.out.println(pocicion3);
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+  
+                }
+            
+                
+        }
+        catch (InterruptedException ex) {
+                Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
+    public  void FiguraEquipo2(){
+        String cabeza1 = "   ****   ";
+        String cabeza2 = "*   *  ";
+        String cabeza3 = "   ****   ";
+        try {
+            for (Corredor corredor : info) {
+                if(corredor.getCorredor()==1 && corredor.getNombreEquipo().equals("Esmeralda")){
+                    pocicion1 = corredor.getPasos();
+                }else if(corredor.getCorredor() ==2 && corredor.getNombreEquipo().equals("Esmeralda")){
+                    pocicion2 = corredor.getPasos();
+                }else if(corredor.getCorredor() ==3 && corredor.getNombreEquipo().equals("Esmeralda")){
+                    pocicion3 = corredor.getPasos();
+                }
+            }
+                Thread.sleep(1000);
+                if (pocicion1 <30) {
+                    pocicion2-=pocicion1;
+                    System.out.println(pocicion1);
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+                    
+                }else if(pocicion2 < 30){
+                    
+                    System.out.println(pocicion2+ " corredor 2");
+                    pocicion3-=pocicion2;
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+                    pocicion2-= pocicion1;
+                }else if(pocicion3 < 30){
+                    
+                    System.out.println(pocicion3);
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+  
+                }
+            
+                
+        }
+        catch (InterruptedException ex) {
+                Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    public  void FiguraEquipo3(){
+        String cabeza1 = "***  ***";
+        String cabeza2 = "  ***  ";
+        String cabeza3 = "***  ***";
+        try {
+            for (Corredor corredor : info) {
+                if(corredor.getCorredor()==1 && corredor.getNombreEquipo().equals("Ruby")){
+                    pocicion1 = corredor.getPasos();
+                }else if(corredor.getCorredor() ==2 && corredor.getNombreEquipo().equals("Ruby")){
+                    pocicion2 = corredor.getPasos();
+                }else if(corredor.getCorredor() ==3 && corredor.getNombreEquipo().equals("Ruby")){
+                    pocicion3 = corredor.getPasos();
+                }
+            }
+                Thread.sleep(1000);
+                if (pocicion1 <30) {
+                    pocicion2-=pocicion1;
+                    System.out.println(pocicion1);
+                    
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%"+pocicion1+"s %"+pocicion2+"s %30s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+                }else if(pocicion2 < 30){
+                    System.out.println(pocicion2);
+                    pocicion3-=pocicion2;
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%30s %"+pocicion2+"s %"+pocicion3+"s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+                    pocicion2-= pocicion1;
+                }else if(pocicion3 < 30){
+                    System.out.println(pocicion1);
+                    System.out.println("________________________________________________________________________________________________________________________________");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza1, cabeza1, cabeza1+"\n");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza2, cabeza2, cabeza2+"\n");
+                    System.out.printf("%30s %30s %"+pocicion3+"s ", cabeza3, cabeza3, cabeza3+"\n");
+                    System.out.println("_________________________________________________________________________________________________________________________________");
+  
+                }
+            
+                
+        }
+        catch (InterruptedException ex) {
+                Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     
     
             

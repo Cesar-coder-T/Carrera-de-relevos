@@ -5,6 +5,7 @@
  */
 package co.edu.unicundi.carreraderelevos.modelo;
 
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +47,7 @@ public class Corredor extends Equipo {
     /**
      * Define el estado del final de la carrera. 
      */
-    private boolean bandera;
+    private boolean bandera = false;
     
     /**
      * Constructor por defecto de la clase.
@@ -78,14 +79,14 @@ public class Corredor extends Equipo {
      */
     @Override
     public void run(){
-        while(true){
-            if(pivote!=false){
-                correr();
-                pivote = false;
-            }
-            esperar();
+        esperar();
+        if(pivote!=false){
+            correr();
+            pivote = false;
+        }if(corredor == 3 && pivote == false ){
+            System.out.println("gano el equipo" + this.getNombreEquipo());
         }
-             
+        interrupt();       
     }
     
     /**
@@ -108,6 +109,7 @@ public class Corredor extends Equipo {
             byte cont =0;
             switch(corredor){
                 case 1: 
+                    pasos = 1;
                     while (pasos <= 30 ) {
                         Thread.sleep(1000);
                         cont = (byte) (Math.random()*4+1);
@@ -117,22 +119,24 @@ public class Corredor extends Equipo {
                     pasos = 30;
                     break;
                 case 2 :
-                    while(pasos <= 40){
+                    pasos=1;
+                    while(pasos <= 30){
                         Thread.sleep(1000);
                         cont = (byte) (Math.random()*4+1);
                         pasos+=cont;
-                        cont=cont;
-                       
+                        cont=cont;   
                     }
+                    pasos =30;
                     break;
                 case 3:
-                    while(pasos <= 60){
+                    pasos=1;
+                    while(pasos <= 30){
                         Thread.sleep(1000);
                         cont = (byte) (Math.random()*4+1);
                         pasos+=cont;
                         cont=cont;
-                        
                     }
+                    pasos=30;
                     break;
         }
         bandera = true;
@@ -150,7 +154,8 @@ public class Corredor extends Equipo {
         pasos += (byte) p.nextInt(4) + 1;
         return pasos;
     }
-    
+
+
     /**
      * Método get del atributo "nombreParticipante"
      * @return 
